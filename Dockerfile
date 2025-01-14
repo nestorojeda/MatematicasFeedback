@@ -1,5 +1,5 @@
 # Use the official Python base image
-FROM jupyter/base-notebook
+FROM jupyter/datascience-notebook:latest
 
 # Set environment variables to prevent interactive prompts and ensure UTF-8 locale
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -9,6 +9,10 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 # Set a working directory inside the container
 WORKDIR /app
+
+# Install the requirements.txt file
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entrypoint script
 COPY  --chmod=755 start-jupyter.sh /app/
